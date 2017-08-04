@@ -1,0 +1,12 @@
+author: UMADSON
+version: 0.1
+main: tk.thewoosh.hcf.HCF
+name: HCF
+
+commands:
+  f:
+  faction:
+  bal:
+  balance:
+  updatebalance:
+  updaterank:
