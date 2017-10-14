@@ -3,7 +3,9 @@ package tk.thewoosh.hcf;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import tk.thewoosh.hcf.claims.ClaimManager;
 import tk.thewoosh.hcf.command.CommandBalance;
+import tk.thewoosh.hcf.command.CommandClaim;
 import tk.thewoosh.hcf.command.CommandFaction;
 import tk.thewoosh.hcf.command.CommandUpdateRank;
 import tk.thewoosh.hcf.connection.MySQLManager;
@@ -25,6 +27,9 @@ public class HCF extends JavaPlugin {
 		getCommand("bal").setExecutor(bal);
 		getCommand("f").setExecutor(fac = new CommandFaction());
 		getCommand("faction").setExecutor(fac);
+		getCommand("claim").setExecutor(new CommandClaim());
+		
+		ClaimManager.loadClaims();
 	}
 	
 	public static FactionManager getManager() {
