@@ -42,4 +42,9 @@ public class Faction {
 		this.description = newDesc;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Faction ? obj == this || ((Faction) obj).getName().equals(name): false;
+	}
+	
 }

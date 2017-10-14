@@ -10,3 +10,4 @@ commands:
   balance:
   updatebalance:
   updaterank:
+  claim:

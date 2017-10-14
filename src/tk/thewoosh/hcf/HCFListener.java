@@ -1,13 +1,18 @@
 package tk.thewoosh.hcf;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import tk.thewoosh.hcf.claims.ClaimInfo;
+import tk.thewoosh.hcf.claims.ClaimManager;
+import tk.thewoosh.hcf.claims.ClaimType;
 import tk.thewoosh.hcf.faction.FactionPlayer;
 
 public class HCFListener implements Listener {
@@ -49,7 +54,26 @@ public class HCFListener implements Listener {
 				}
 			}
 		}, "HCF-Chat (" + (System.currentTimeMillis() / 100000000)).start();
-	} 
+	}
+	
+	@EventHandler
+	public void onMove(PlayerMoveEvent event) {
+		if (!event.getTo().getChunk().equals(event.getFrom().getChunk()) && !ClaimManager.getClaimInfo(event.getTo().getChunk()).equals(ClaimManager.getClaimInfo(event.getFrom().getChunk()))) {
+			Chunk c = event.getTo().getChunk();
+			if (!ClaimManager.isClaimed(c))
+				c = event.getFrom().getChunk();
+			if (!ClaimManager.isClaimed(c))
+				return;
+			String message = "§7" + (ClaimManager.isClaimed(c) ? "Now entering: " : "Leaving: ");
+			ClaimInfo info = ClaimManager.getClaimInfo(c);
+			if (info.getType() == ClaimType.FACTION)
+				message += (HCF.getManager().getPlayer(event.getPlayer()).getFaction().equals(info.faction()) ? "§a" : "§c") + "§l" + info.getFaction();
+			else
+				message += info.getType().getColor() + info.getType().getDisplayName();
+			// TODO Title
+			event.getPlayer().sendMessage(message);
+		}
+	}
 	
 }
 

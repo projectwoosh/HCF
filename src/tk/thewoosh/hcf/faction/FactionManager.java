@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
 import tk.thewoosh.hcf.HCF;
@@ -174,16 +175,20 @@ public class FactionManager {
 		}
 	}
 
-	public void sendUpdateRank(Rank oldRank, Rank newRank, String whoDidIt, String whoGotIt) {
-		// TODO
-	}
-
 	public void addFaction(Faction f) {
 		FACTIONS.add(f);
 	}
 
 	public ArrayList<FactionPlayer> getPlayers() {
 		return PLAYERS;
+	}
+
+	public void sendUpdateRank(Rank oldRank, Rank newRank, String name, String name2) {
+		// TODO
+	}
+
+	public void sendStaffClaim(Chunk c, FactionPlayer fp) {
+		// TODO
 	}
 
 }
